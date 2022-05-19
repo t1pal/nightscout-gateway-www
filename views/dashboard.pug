@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    main.flex-shrink-0
+        .container
+            h1.mt-5 #{software.name}
+            p.lead
+            | #{software.salutation}
+            if show_debug
+              pre.
+                #{JSON.stringify(locals, null, 2)}
+            ul
+              li
+                a(href="/auth/connect") Connect to T1Pal
+              li
+                a(href="/dashboard") Dashboard
+            h3 Sites
+
+            each site in sites
+              h4
+                a(href="/details/" + site.name) #{site.name} Details
