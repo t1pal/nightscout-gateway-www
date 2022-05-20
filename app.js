@@ -42,6 +42,8 @@ if (app.get('env') == 'development') {
 }
 
 app.locals.software = config.software;
+  app.set('trust proxy', 1);
+  session_config.cookie.secure == true;
 
 if (app.get('env') == 'production') {
   app.set('trust proxy', 1);

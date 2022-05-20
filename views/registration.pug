@@ -1,0 +1,37 @@
+
+extends layout.pug
+
+mixin node(attrs)
+  if attrs.meta.label
+    if attrs.attributes.type == 'submit'
+      button()&attributes(attrs.attributes)
+        | #{attrs.meta.label.text}
+    else
+      label(for=attrs.meta.label.id) #{attrs.meta.label.text}
+        input&attributes(attrs.attributes)
+  else
+    input&attributes(attrs.attributes)
+  //- pre.
+    #{attrs.type}
+    #{attrs.type}
+    #{JSON.stringify(attrs, null, 2)}
+    
+
+
+block content
+  // block header
+  main.flex-shrink-0
+    .container
+      h1.mt-5 Sign up
+      form#flow(action=flow.ui.action, method=flow.ui.method)
+        each node in flow.ui.nodes
+          +node(node)
+
+          br
+          
+      // pre
+        #{JSON.stringify(locals, null, 2)}
+
+  // block footer
+
+
