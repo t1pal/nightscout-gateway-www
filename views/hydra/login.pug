@@ -1,0 +1,27 @@
+
+extends ../../layouts/default
+
+block head
+  title Login
+
+block feet
+  script(src='/views/login/index.min.js?' + cacheBreaker + '')
+
+block body
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1 Confirm Sign In with T1Pal
+
+    if error
+      p.
+        #{error}
+    div.hero
+      form(action=action, method="POST")
+        input(type="hidden", name="_csrf", value=csrfToken)
+        input(type="hidden", name="challenge", value=challenge)
+        input(type="checkbox", id="remember", name="remember", value="1")
+        label(for="remember") Remember me
+        br
+        input.btn.btn-success(type="submit", id="accept", name="submit", value="Log in")
+        input.btn.btn-info(type="submit", id="reject", name="submit", value="Deny access")
