@@ -2,6 +2,7 @@
   "name": "nodebootstraper",
   "version": "5.0.0",
   "dependencies": {
+    "@ory/hydra-client": "^1.11.8",
     "@ory/kratos-client": "^0.9.0-alpha.3",
     "axios": "^0.26.1",
     "body-parser": "^1.20.0",

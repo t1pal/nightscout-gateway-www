@@ -5,6 +5,31 @@ block content
         .container
             h1.mt-5 #{software.name}
             p.lead
+            .card.mb-3
+              .card-heading
+                .card-title
+                  h2 Available sites
+              .card-body
+                ul
+                  li site a
+                  each site in sites_available.data
+                    li site a
+            .card.mb-3
+              .card-heading
+                h2 Join a group
+              .card-body
+                ul
+                  each group in groups_available.results.data
+                    li
+                      a(href='#')
+                        | #{group.expected_name}
+            .card.mb-3
+              .card-heading
+                h2 My activity
+              .card-body
+                ul
+                  //- li activity a
+                  //- li activity b
             | #{software.salutation}
             if true || show_debug
               pre.

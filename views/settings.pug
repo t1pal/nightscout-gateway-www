@@ -1,20 +1,22 @@
 extends layout.pug
 
 mixin node(attrs)
-  if attrs.meta.label
-    if attrs.attributes.type == 'submit'
-      button()&attributes(attrs.attributes)
-        | #{attrs.meta.label.text}
+  .form-group.row
+    if attrs.meta.label
+        if attrs.attributes.type == 'submit'
+          button.btn.btn-primary()&attributes(attrs.attributes)
+            | #{attrs.meta.label.text}
+        else
+          label(for=attrs.attributes.name) #{attrs.meta.label.text}
+          input.form-control(id=attrs.attributes.name)&attributes(attrs.attributes)
+          small &nbsp;
     else
-      label(for=attrs.meta.label.id) #{attrs.meta.label.text}
-        input&attributes(attrs.attributes)
-  else
-    input&attributes(attrs.attributes)
-  //- pre.
-    #{attrs.type}
-    #{attrs.type}
-    #{JSON.stringify(attrs, null, 2)}
-    
+      input&attributes(attrs.attributes)
+    //- pre.
+      #{attrs.type}
+      #{attrs.type}
+      #{JSON.stringify(attrs, null, 2)}
+      
 
 
 block content
@@ -24,14 +26,16 @@ block content
       each message in flow.ui.messages || [ ]
         .card
           .card-text #{message.text}
-      form#flow(action=flow.ui.action, method=flow.ui.method)
-        each node in flow.ui.nodes
-          if node.group == 'profile' || node.group == 'default'
-            +node(node)
+      .card
+        .card-body
+          form#flow(action=flow.ui.action, method=flow.ui.method)
+            each node in flow.ui.nodes
+              if node.group == 'profile' || node.group == 'default'
+                +node(node)
 
             br
       h1.mt-5 Password profile settings
-      form#flow(action=flow.ui.action, method=flow.ui.method)
+      form#flow_password(action=flow.ui.action, method=flow.ui.method)
         each node in flow.ui.nodes
           if node.group == 'password' || node.group == 'default'
             +node(node)
@@ -39,6 +43,6 @@ block content
             br
           
           
-      // pre.
+      pre.
         #{JSON.stringify(locals, null, 2)}
 

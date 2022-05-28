@@ -24,6 +24,20 @@ var config = {
     client_id: process.env.OAUTH_CLIENT_ID || 'invalid',
     client_secret: process.env.OAUTH_CLIENT_SECRET || 'invalid',
   },
+  dummy: {
+    testA: {
+      client_id: 'ec9d2058-8b95-4ecc-8eba-454534f8165a',
+      client_secret: 'tFfRn4qP2JG~nOKHXQ8ZrsWp93'
+
+    },
+    testB: {
+      client_id: '8c4df38b-4d5b-4b0d-b1b6-635577e1ea4f',
+      client_secret: '3Ti8Q~TbRJ2-ZChGJluKRzX5ZT' 
+
+    },
+
+
+  },
   kratos: {
     browser: process.env.KRATOS_BROWSER_URL,
     admin:  process.env.KRATOS_ADMIN_URL,
@@ -31,6 +45,9 @@ var config = {
   },
   hydra: {
     admin:  process.env.HYDRA_ADMIN_URL
+  },
+  gateway: {
+    api: process.env.NIGHTSCOUT_GATEWAY_API || 'http://169.254.1.1:3883'
   },
   cookieSecret: process.env.COOKIE_SECRET || cookieSecret
 
