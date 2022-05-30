@@ -11,9 +11,9 @@ block content
                   h2 Available sites
               .card-body
                 ul
-                  li site a
                   each site in sites_available.data
-                    li site a
+                    li
+                      a(href='/portal/' + site.expected_name) #{site.expected_name}
             .card.mb-3
               .card-heading
                 h2 Join a group
@@ -21,7 +21,7 @@ block content
                 ul
                   each group in groups_available.results.data
                     li
-                      a(href='#')
+                      a(href='./invitations/' + group.expected_name + '/join')
                         | #{group.expected_name}
             .card.mb-3
               .card-heading

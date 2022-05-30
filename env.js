@@ -18,7 +18,7 @@ var config = {
   },
   oauth: {
     resources: process.env.OAUTH_RESOURCES || 'https://gateway.dummy0/',
-    base_url: process.env.OAUTH_BASE_URL || 'https://gateway.dummy0/', // 'http://169.254.1.1:4944',
+    base_url: process.env.OAUTH_BASE_URL || 'https://gateway.dummy0', // 'http://169.254.1.1:4944',
     auth_url: process.env.OAUTH_AUTH_URL || 'https://gateway.dummy0/oauth2/auth',
     token_url: process.env.OAUTH_TOKEN_URL || process.env.OAUTH_AUTH_URL || 'https://gateway.dummy0/oauth2/token',
     client_id: process.env.OAUTH_CLIENT_ID || 'invalid',

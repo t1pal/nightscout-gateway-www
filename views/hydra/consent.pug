@@ -1,47 +1,60 @@
 
 extends ../layout
 
-block head
-  title Login
-
 
 block content
-  div.row
-    div.col-sm-6
-      div.page-header
-        h1 Another application is requesting access to your data.
-    .hero
-      form(action=action, method="POST")
-          input(type="hidden", name="challenge", value=challenge)
-          input(type="hidden", name="_csrf", value=csrfToken)
+  main.flex-shrink-0
+    .container
+      h1.mt-5 #{software.name}
+      div.row
+        div.col-sm-6
+          div.page-header
+            h1 Another application is requesting access to your data.
+        .hero
+          form(action=action, method="POST")
+              input(type="hidden", name="challenge", value=challenge)
+              input(type="hidden", name="_csrf", value=csrfToken)
 
-          if client.logo_uri
-              img(src=client.logo_uri)
+              if client.logo_uri
+                  img(src=client.logo_uri)
 
-          p.
-              Hi #{user}, application <strong>#{client.client_name || client.client_id}</strong> wants access resources on your behalf and to:
+              p.
+                  Hi #{user}, application <strong>#{client.client_name || client.client_id}</strong> wants access resources on your behalf and to:
 
-          each scope in requested_scope
-              input(type="checkbox", class="grant_scope", id=scope, value=scope, name="grant_scope")
-              label(for=scope) #{scope}
-              br
+              each scope in requested_scope
+                  input(type="checkbox", class="grant_scope", id=scope, value=scope, name="grant_scope")
+                  label(for=scope) #{scope}
+                  br
 
-          p.
-              Do you want to be asked next time when this application wants to access your data? The application will
-              not be able to ask for more permissions without your consent.
-          ul
-              if client.policy_uri
-                  li
-                      a(href=client.policy_uri) Policy
-              if client.tos_uri
-                  li
-                      a(href=client.tos_uri) Terms of Service
-          p
-              input(type="checkbox", id="remember", name="remember", value="1")
-              label(for="remember") Do not ask me again
-          p
-              input(type="submit", id="accept", name="submit", value="Allow access")
-              input(type="submit", id="reject", name="submit", value="Deny access")
+              p.
+                  Do you want to be asked next time when this application wants to access your data? The application will
+                  not be able to ask for more permissions without your consent.
+              ul
+                  if client.policy_uri
+                      li
+                          a(href=client.policy_uri) Policy
+                  if client.tos_uri
+                      li
+                          a(href=client.tos_uri) Terms of Service
+              p
+                  input(type="checkbox", id="remember", name="remember", value="1")
+                  label(for="remember") Do not ask me again
+              ul
+              each group in groups_available.results.data
+                li
+                  .card-body
+                    .form-group
+                      label
+                        | Join #{group.group_name}
+                        | &nbsp;
+                        
+                      .checkbox
+                         input.checkbox(type="checkbox", checked=group.subject!=null, name='join[' + group.group_id + ']', value=group.group_id)
 
-  pre.
-    #{JSON.stringify(locals, null, 2)}
+              p
+                  input(type="submit", id="accept", name="submit", value="Allow access")
+                  input(type="submit", id="reject", name="submit", value="Deny access")
+                
+
+      pre.
+        #{JSON.stringify(locals, null, 2)}
