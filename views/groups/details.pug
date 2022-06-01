@@ -1,0 +1,41 @@
+
+extends ../layout
+
+block content
+  main.flex-shrink-0
+    .container
+      h1.mt-5 #{software.name}
+
+      .row
+        each group in groups.results.data
+          .card-body
+            .card-heading
+              h4
+                | #{group.group_name}
+              .card-text
+                small.text-muted #{group.full_domain}
+          .card-body
+            .card-text
+              h5
+                | #{group.policy_name}
+              p Accesses 
+                strong #{group.nickname}: 
+                small.text-muted #{group.full_domain}
+
+            ul
+              li
+                a.card-link(href=`${links.nav.self}/${group.group_id}`) Review
+              li
+                if group.subject
+                  a.btn.btn-danger( ) Leave
+                    | 
+                    | #{group.group_name}
+                else
+                  a.btn.btn-success(href=`/invitations/${group.expected_name}/join`) Join
+                    | 
+                    | #{group.group_name}
+            pre.
+              #{JSON.stringify(group, null, 2)}
+
+        pre.
+          #{JSON.stringify(locals, null, 2)}

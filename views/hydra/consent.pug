@@ -19,16 +19,20 @@ block content
                   img(src=client.logo_uri)
 
               p.
-                  Hi #{user}, application <strong>#{client.client_name || client.client_id}</strong> wants access resources on your behalf and to:
+                  Hi #{user.identity.traits.name.first}, application <strong>#{client.client_name || client.client_id}</strong> wants access resources on your behalf and to:
 
               each scope in requested_scope
-                  input(type="checkbox", class="grant_scope", id=scope, value=scope, name="grant_scope")
-                  label(for=scope) #{scope}
-                  br
+                .form-group
+                    input.checkbox(type="checkbox", class="grant_scope", id=scope, value=scope, name="grant_scope")
+                    label(for=scope) #{scope}
 
-              p.
+              .card-body
+                h5 Remember settings
+                .card-text.
                   Do you want to be asked next time when this application wants to access your data? The application will
                   not be able to ask for more permissions without your consent.
+                input(type="checkbox", id="remember", name="remember", value="1")
+                label(for="remember") Do not ask me again
               ul
                   if client.policy_uri
                       li
@@ -36,24 +40,25 @@ block content
                   if client.tos_uri
                       li
                           a(href=client.tos_uri) Terms of Service
-              p
-                  input(type="checkbox", id="remember", name="remember", value="1")
-                  label(for="remember") Do not ask me again
-              ul
               each group in groups_available.results.data
-                li
-                  .card-body
-                    .form-group
-                      label
-                        | Join #{group.group_name}
-                        | &nbsp;
+                .card-text
+                    label
+                      input.checkbox(type="checkbox", checked=group.subject!=null, name='join[' + group.group_id + ']', value=group.group_id)
+                      | 
+                      | Join
+                      | 
+                      tt #{group.group_name}
+                      | 
+                      | to access
+                      tt #{group.full_domain}
+                      | .
                         
-                      .checkbox
-                         input.checkbox(type="checkbox", checked=group.subject!=null, name='join[' + group.group_id + ']', value=group.group_id)
 
               p
-                  input(type="submit", id="accept", name="submit", value="Allow access")
-                  input(type="submit", id="reject", name="submit", value="Deny access")
+              p
+              .card-body
+                  input.btn.btn-success(type="submit", id="accept", name="submit", value="Allow access")
+                  input.btn.btn-outline-secondary(type="submit", id="reject", name="submit", value="Deny access")
                 
 
       pre.

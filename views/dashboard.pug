@@ -10,23 +10,36 @@ block content
                 .card-heading
                   .card-title
                     h2 Available sites
-                ul
                   each site in sites_available.data
-                    li
-                      a(href='/portal/' + site.expected_name) #{site.expected_name}
+                    .card-body
+                      .card-heading
+                        h4 #{site.nickname || site.expected_name}
+                      .card-text
+                    .card-body
+                      a.card-link(href='/portal/' + site.expected_name) Manage access
+                      a.card-link(href='//' + site.full_domain, target='_blank') Visit #{site.expected_name}
             .card.mb-3
-              .card-heading
-                h2 Join a group
               .card-body
-                ul
+                .card-heading
+                  h2 Join a group
                   each group in groups_available.results.data
-                    li
-                      a(href='./invitations/' + group.expected_name + '/join')
-                        | #{group.expected_name}
-            .card.mb-3
-              .card-heading
-                h2 My activity
+                    .card-body
+                      .card-text
+                        // pre.
+                          #{JSON.stringify(group, null, 2)}
+                      a.card-link(href='./invitations/' + group.expected_name + '/join') RSVP to 
+                        strong
+                          | #{group.group_name}
+                      span.card-text
+                        |  to visit 
+                        span.card-text
+                          strong #{group.nickname}
+                          | : 
+                          tt #{group.full_domain}.
+            //- .card.mb-3
               .card-body
+                .card-heading
+                  h2 My activity
                 ul
                   //- li activity a
                   //- li activity b
