@@ -18,18 +18,18 @@ block content
             .card-text
               h5
                 | #{group.policy_name}
-              p Accesses 
+              p For 
                 strong #{group.nickname}: 
                 small.text-muted #{group.full_domain}
 
-            ul
-              li
-                a.card-link(href=`${links.nav.self}/${group.group_id}`) Review
-              li
+            .card-text
+              a.card-link(href=`${links.nav.self}`) Review
+            .card-text
                 if group.subject
-                  a.btn.btn-danger( ) Leave
-                    | 
-                    | #{group.group_name}
+                  form(action=`${links.nav.self}/actions/leave`, method='POST')
+                    button.btn.btn-danger(type='submit', value='leave_group') Leave
+                      | 
+                      | #{group.group_name}
                 else
                   a.btn.btn-success(href=`/invitations/${group.expected_name}/join`) Join
                     | 

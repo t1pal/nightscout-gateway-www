@@ -18,16 +18,15 @@ block content
             .card-text
               h5
                 | #{group.policy_name}
-              p Accesses 
+              p For 
                 strong #{group.nickname}: 
                 small.text-muted #{group.full_domain}
 
-            ul
-              li
-                a.card-link(href=`${links.nav.self}/${group.group_id}`) Review
-              li
+            .card-text
+              a.card-link(href=`${links.nav.self}/${group.group_id}`) Review
+            .card-text
                 if group.subject
-                  a.btn.btn-danger( ) Leave
+                  //- a.btn.btn-danger( ) Leave
                     | 
                     | #{group.group_name}
                 else
