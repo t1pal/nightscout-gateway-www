@@ -25,12 +25,12 @@ block content
         h2.typography-h2.card-title
           | We experienced a set back
         pre.code-box
-          code
+          code.
             #{message}
           
       .card
         .card-action
-          a.typography-link.typography-h2(href='login') Return to login area
-      pre
+          a.typography-link.typography-h2(href='/auth/login') Return to login area
+      pre.
         #{JSON.stringify(locals, null, 2)}
 

@@ -56,7 +56,6 @@ app.use(passport.initialize( ));
 app.use(passport.session( ));
 
 
-app.get('/', routes.index);
 app.use(routes(app, config));
 
 
