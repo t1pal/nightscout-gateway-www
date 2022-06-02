@@ -11,7 +11,8 @@ block content
           .card-body
             .card-heading
               h4
-                | #{group.group_name}
+                a(href=`${links.nav.self}/${group.group_id}`)
+                  | #{group.group_name}
               .card-text
                 small.text-muted #{group.full_domain}
           .card-body
@@ -33,7 +34,7 @@ block content
                   a.btn.btn-success(href=`/invitations/${group.expected_name}/join`) Join
                     | 
                     | #{group.group_name}
-            pre.
+            //- pre.
               #{JSON.stringify(group, null, 2)}
 
         pre.
