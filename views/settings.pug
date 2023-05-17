@@ -3,7 +3,7 @@ extends layout.pug
 mixin node(attrs)
   .form-group.row
     if attrs.meta.label
-        if attrs.attributes.type == 'submit'
+        if attrs.attributes && attrs.attributes.type == 'submit'
           button.btn.btn-primary()&attributes(attrs.attributes)
             | #{attrs.meta.label.text}
         else
@@ -13,8 +13,6 @@ mixin node(attrs)
     else
       input&attributes(attrs.attributes)
     //- pre.
-      #{attrs.type}
-      #{attrs.type}
       #{JSON.stringify(attrs, null, 2)}
       
 
@@ -26,23 +24,127 @@ block content
       each message in flow.ui.messages || [ ]
         .card
           .card-text #{message.text}
-      .card
+      .nav.flex-column.nav-pills#v-pills-settings(role="tablist", aria-orientation="vertical")
+        a.nav-link.active(data-toggle="pill", href="#settingsHome", aria-controls="settingsHome", aria-selected="true") Profile
+        a.nav-link(data-toggle="pill", href="#settingsUpdate", aria-controls="settingsUpdate", aria-selected="false") Change information
+        a.nav-link(data-toggle="pill", href="#settingsLinking", aria-controls="settingsLinking", aria-selected="true") Linked accounts
+        a.nav-link(data-toggle="pill", href="#settingsPassword", aria-controls="settingsPassword", aria-selected="true") Password
+        //- a.nav-link(data-toggle="pill", href="#settingsDeactivate", aria-controls="settingsPassword", aria-selected="true") Deactivate
+      .tab-content
+        .tab-pane.fade.show.active#settingsHome(role="tabpanel")
+          .card
+            .card-header
+              h3.card-title Profile
+            .card-body
+              h2.card-title Debug
+              pre.
+                | #{JSON.stringify(flow.identity, null, 2)}
+
+            .card-body
+              h4.card-title Information
+              h5.card-title Name
+              p
+                tt.lg #{flow.identity.traits.name.first}
+                tt.lg #{flow.identity.traits.name.first}
+
+              h5.card-title Email
+              p
+                tt.lg #{flow.identity.traits.email}
+
+            .card-body
+              .h4.card-title Verified contacts
+            ul.list-group.list-group-flush
+              each contact in flow.identity.verifiable_addresses
+                li.list-group-item
+                  if contact.verified
+                    tt
+                      | #{contact.value}
+                    |  was last verified
+                    | #{contact.updated_at}.
+
+                  else
+                    | We
+                    |  #{contact.status}
+                    |  #{contact.via}
+                    | to
+                    tt
+                      | #{contact.value}
+                    | , on
+                    | #{contact.updated_at}.
+                    br
+                    if contact.status == "sent"
+                      | Please find the link from the email, or 
+                      a(href="/recovery") resend
+                      |  to verify your contact details.
+            .card-body
+              .h4.card-title Recovery contacts
+              if !flow.identity.recovery_addresses
+                .alert.alert-warning
+                  | Please confirm your contact
+                  |  information.
+              else
+                ul.list-group
+                  each contact in flow.identity.verifiable_addresses
+                    li.list-group-item
+                      | #{contact.via},
+                      tt #{contact.value}
+                
+        //- .tab-pane.fade#settingsUpdate(role="tabpanel")
+          | Update
+      .card#settingsUpdate
         .card-body
+          h2.card-title Update profile
           form#flow(action=flow.ui.action, method=flow.ui.method)
             each node in flow.ui.nodes
               if node.group == 'profile' || node.group == 'default'
                 +node(node)
 
             br
-      h1.mt-5 Password profile settings
-      form#flow_password(action=flow.ui.action, method=flow.ui.method)
-        each node in flow.ui.nodes
-          if node.group == 'password' || node.group == 'default'
-            +node(node)
+      .card#settingsLinking
+        .card-body
+          h2.card-title Linked accounts
+          form#linkedAccounts(action=flow.ui.action, method=flow.ui.method)
+            each node in flow.ui.nodes
+              if node.group == 'oidc' || node.group == 'default'
+                +node(node)
 
             br
+      // h1.mt-5 
+      .card#settingsPassword
+        .card-body
+          h2.card-title Change password
+          form#flow_password(action=flow.ui.action, method=flow.ui.method)
+            each node in flow.ui.nodes
+              if node.group == 'password' || node.group == 'default'
+                +node(node)
+
+                br
           
           
+      //- .card#settingsDeactivate
+        .card-body
+          h2.card-title Deactivate
+          a(href="/settings/deactivate")
+            | Deactivate account
+          form#deactivate(action="deactivate", method="POST")
+            input(type="hidden", name="_csrf", value=csrfToken)
+            .alert.alert-warning
+              | Please enter your name to confirm deleting your account.
+              | This action cannot be undone.
+            .form-group
+              label(for="confirmation_text")
+                | Confirm
+              div Please type name of person to remove: 
+                tt.confirmation_text
+                  | #{flow.identity.traits.name.first}
+                  | #{flow.identity.traits.name.last}
+              input.form-control#confirmation_text(type="text")
+            .form-check
+              input.form-check-input#deactivate_check(type="checkbox")
+              label.form-check-label(for="deactivate_check") Deactivate and forget this account.
+            .form-group
+              input(type="submit", value="Deactivate")
+
       pre.
         #{JSON.stringify(locals, null, 2)}
 

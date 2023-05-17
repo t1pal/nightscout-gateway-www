@@ -3,6 +3,10 @@ extends layout.pug
 
 mixin node(attrs)
   .form-group.row
+    if attrs.messages
+      each message in attrs.messages
+        .alert.alert-danger
+          | #{message.text}
     if attrs.meta.label
         if attrs.attributes.type == 'submit'
           button.btn.btn-primary()&attributes(attrs.attributes)
@@ -24,13 +28,14 @@ block content
   main.flex-shrink-0
     .container
       h1.mt-5 Sign up
-      form#flow(action=flow.ui.action, method=flow.ui.method)
-        each node in flow.ui.nodes
-          +node(node)
-
-          br
+      each group in [ 'oidc', 'password' ]
+        form#flow(action=flow.ui.action, method=flow.ui.method)
+          each node in flow.ui.nodes
+            if node.group == "default" || node.group == "" || node.group == group
+              +node(node, group)
+              br
           
-      // pre
+      pre
         #{JSON.stringify(locals, null, 2)}
 
   // block footer
