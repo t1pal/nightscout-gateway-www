@@ -29,7 +29,7 @@ block content
         a.nav-link(data-toggle="pill", href="#settingsUpdate", aria-controls="settingsUpdate", aria-selected="false") Change information
         a.nav-link(data-toggle="pill", href="#settingsLinking", aria-controls="settingsLinking", aria-selected="true") Linked accounts
         a.nav-link(data-toggle="pill", href="#settingsPassword", aria-controls="settingsPassword", aria-selected="true") Password
-        //- a.nav-link(data-toggle="pill", href="#settingsDeactivate", aria-controls="settingsPassword", aria-selected="true") Deactivate
+        a.nav-link(data-toggle="pill", href="#settingsDeactivate", aria-controls="settingsPassword", aria-selected="true") Deactivate
       .tab-content
         .tab-pane.fade.show.active#settingsHome(role="tabpanel")
           .card
@@ -121,7 +121,7 @@ block content
                 br
           
           
-      //- .card#settingsDeactivate
+      .card#settingsDeactivate
         .card-body
           h2.card-title Deactivate
           a(href="/settings/deactivate")
@@ -138,7 +138,7 @@ block content
                 tt.confirmation_text
                   | #{flow.identity.traits.name.first}
                   | #{flow.identity.traits.name.last}
-              input.form-control#confirmation_text(type="text")
+              input.form-control#confirmation_text(name="confirmed_deactivation", type="text")
             .form-check
               input.form-check-input#deactivate_check(type="checkbox")
               label.form-check-label(for="deactivate_check") Deactivate and forget this account.
