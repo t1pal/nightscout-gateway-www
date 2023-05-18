@@ -49,6 +49,7 @@ var config = {
   gateway: {
     api: process.env.NIGHTSCOUT_GATEWAY_API || 'http://169.254.1.1:3883'
   },
+  debugViews: process.env.DEBUG_VIEWS == 'yes',
   cookieSecret: process.env.COOKIE_SECRET || cookieSecret
 
 };

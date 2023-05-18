@@ -145,6 +145,7 @@ block content
             .form-group
               input(type="submit", value="Deactivate")
 
-      pre.
-        #{JSON.stringify(locals, null, 2)}
+      if debugViews
+        pre.
+          #{JSON.stringify(locals, null, 2)}
 

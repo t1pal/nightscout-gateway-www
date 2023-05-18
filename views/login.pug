@@ -31,6 +31,7 @@ block content
         .card-body
           .card-link
             a(href='/recovery') Recover forgotten password
-      pre.
-        #{JSON.stringify(locals, null, 2)}
+      if debugViews
+        pre.
+          #{JSON.stringify(locals, null, 2)}
 

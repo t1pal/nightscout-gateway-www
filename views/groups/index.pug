@@ -37,5 +37,6 @@ block content
             //- pre.
               #{JSON.stringify(group, null, 2)}
 
-        pre.
-          #{JSON.stringify(locals, null, 2)}
+        if debugViews
+          pre.
+            #{JSON.stringify(locals, null, 2)}

@@ -6,7 +6,7 @@ block content
             h1.mt-5 #{software.name}
             p.lead
             | #{software.salutation}
-            if show_debug
+            if debugViews || show_debug
               pre.
                 #{JSON.stringify(locals, null, 2)}
             ul

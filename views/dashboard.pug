@@ -44,7 +44,7 @@ block content
                   //- li activity a
                   //- li activity b
             | #{software.salutation}
-            if true || show_debug
+            if debugViews || show_debug
               pre.
                 #{JSON.stringify(locals, null, 2)}
             ul

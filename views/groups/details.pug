@@ -34,8 +34,10 @@ block content
                   a.btn.btn-success(href=`/invitations/${group.expected_name}/join`) Join
                     | 
                     | #{group.group_name}
-            pre.
-              #{JSON.stringify(group, null, 2)}
+            if debugViews
+              pre.
+                #{JSON.stringify(group, null, 2)}
 
-        pre.
-          #{JSON.stringify(locals, null, 2)}
+        if debugViews
+          pre.
+            #{JSON.stringify(locals, null, 2)}

@@ -35,8 +35,9 @@ block content
               +node(node, group)
               br
           
-      pre
-        #{JSON.stringify(locals, null, 2)}
+      if debugViews
+        pre
+          #{JSON.stringify(locals, null, 2)}
 
   // block footer
 

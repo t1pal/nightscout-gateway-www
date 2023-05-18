@@ -61,5 +61,6 @@ block content
                   input.btn.btn-outline-secondary(type="submit", id="reject", name="submit", value="Deny access")
                 
 
-      pre.
-        #{JSON.stringify(locals, null, 2)}
+      if debugViews
+        pre.
+          #{JSON.stringify(locals, null, 2)}
