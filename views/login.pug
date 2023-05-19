@@ -20,14 +20,28 @@ mixin node(attrs)
 block content
   main.flex-shrink-0
     .container
+      h1 Sign in
       .card
         .card-body
-          h1.mt-5 Sign in
+          //- each group in [ 'oidc', 'password' ]
+            form(id=`flow-${group}`, action=flow.ui.action, method=flow.ui.method)
+              each node in flow.ui.nodes
+                if node.group == "default" || node.group == "" || node.group == group
+                  +node(node, group)
+                  br
           form#flow(action=flow.ui.action, method=flow.ui.method)
             each node in flow.ui.nodes
-              +node(node)
-
-              br
+              if node.group == "oidc"
+                +node(node)
+                br
+      .card
+        .card-body
+          h3.card-title Login with Email and password
+          form#flow(action=flow.ui.action, method=flow.ui.method)
+            each node in flow.ui.nodes
+              if node.group != "oidc"
+                +node(node)
+                br
         .card-body
           .card-link
             a(href='/recovery') Recover forgotten password
