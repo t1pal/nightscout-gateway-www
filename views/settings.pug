@@ -45,7 +45,7 @@ block content
               h5.card-title Name
               p
                 tt.lg #{flow.identity.traits.name.first}
-                tt.lg #{flow.identity.traits.name.first}
+                tt.lg #{flow.identity.traits.name.last}
 
               h5.card-title Email
               p
@@ -103,6 +103,8 @@ block content
       .card#settingsLinking
         .card-body
           h2.card-title Linked accounts
+          if user.authentication_methods[0].method == 'oidc'
+            p Currently logged in through connected account.
           form#linkedAccounts(action=flow.ui.action, method=flow.ui.method)
             each node in flow.ui.nodes
               if node.group == 'oidc' || node.group == 'default'

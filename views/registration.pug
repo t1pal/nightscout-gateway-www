@@ -28,6 +28,10 @@ block content
   main.flex-shrink-0
     .container
       h1.mt-5 Sign up
+      each message in flow.ui.messages || [ ]
+        .card
+          .card-body
+            .card-text #{message.text}
       each group in [ 'oidc', 'password' ]
         form(id=`flow-${group}`, action=flow.ui.action, method=flow.ui.method)
           each node in flow.ui.nodes
