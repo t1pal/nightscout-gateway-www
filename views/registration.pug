@@ -29,7 +29,7 @@ block content
     .container
       h1.mt-5 Sign up
       each group in [ 'oidc', 'password' ]
-        form#flow(action=flow.ui.action, method=flow.ui.method)
+        form(id=`flow-${group}`, action=flow.ui.action, method=flow.ui.method)
           each node in flow.ui.nodes
             if node.group == "default" || node.group == "" || node.group == group
               +node(node, group)
