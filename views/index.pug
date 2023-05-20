@@ -6,11 +6,15 @@ block content
             h1.mt-5 #{software.name}
             p.lead
             | #{software.salutation}
+            if links.logged_in
+              ul
+                //- li
+                  a(href="/auth/connect") Connect to T1Pal
+                li
+                  a(href="/dashboard") continue to Dashboard
+            else
+              p You'll need to log in to visit the
+                a(href="/dashboard") dashboard.
             if debugViews || show_debug
               pre.
                 #{JSON.stringify(locals, null, 2)}
-            ul
-              //- li
-                a(href="/auth/connect") Connect to T1Pal
-              li
-                a(href="/dashboard") Dashboard
