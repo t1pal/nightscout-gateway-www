@@ -8,6 +8,6 @@ header
         ul.navbar-nav.me-auto.mb-2.mb-md-0
           each link in links.header.links
             li.nav-item
-              a.nav-link(href=link.href) #{link.text}
+              a.nav-link(class=link.classes, href=link.href) #{link.text}
             
   .mb-3
